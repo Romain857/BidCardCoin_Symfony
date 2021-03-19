@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acheteur index{% endblock %}
+
+{% block body %}
+    <h1>Acheteur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Solde</th>
+                <th>IsSolvable</th>
+                <th>Identite</th>
+                <th>MoyenPaiement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for acheteur in acheteurs %}
+            <tr>
+                <td>{{ acheteur.id }}</td>
+                <td>{{ acheteur.solde }}</td>
+                <td>{{ acheteur.isSolvable ? 'Yes' : 'No' }}</td>
+                <td>{{ acheteur.identite }}</td>
+                <td>{{ acheteur.moyenPaiement }}</td>
+                <td>
+                    <a href="{{ path('acheteur_show', {'id': acheteur.id}) }}">show</a>
+                    <a href="{{ path('acheteur_edit', {'id': acheteur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('acheteur_new') }}">Create new</a>
+{% endblock %}

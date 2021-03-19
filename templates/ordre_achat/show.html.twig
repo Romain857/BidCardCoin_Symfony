@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OrdreAchat{% endblock %}
+
+{% block body %}
+    <h1>OrdreAchat</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ordre_achat.id }}</td>
+            </tr>
+            <tr>
+                <th>MontantMax</th>
+                <td>{{ ordre_achat.montantMax }}</td>
+            </tr>
+            <tr>
+                <th>AdresseDepot</th>
+                <td>{{ ordre_achat.adresseDepot }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('ordre_achat_index') }}">back to list</a>
+
+    <a href="{{ path('ordre_achat_edit', {'id': ordre_achat.id}) }}">edit</a>
+
+    {{ include('ordre_achat/_delete_form.html.twig') }}
+{% endblock %}
