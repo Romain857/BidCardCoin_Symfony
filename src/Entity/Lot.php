@@ -39,9 +39,40 @@ class Lot
      */
     private $produits;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Encherir::class, mappedBy="idLot")
+     */
+    private $encherirs;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $estimationActuelle;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $prixVente;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $prixReserve;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateEstimation;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateVente;
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
+        $this->encherirs = new ArrayCollection();
     }
 
     public function __toString()
@@ -116,6 +147,93 @@ class Lot
                 $produit->setIdLot(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Encherir[]
+     */
+    public function getEncherirs(): Collection
+    {
+        return $this->encherirs;
+    }
+
+    public function addEncherir(Encherir $encherir): self
+    {
+        if (!$this->encherirs->contains($encherir)) {
+            $this->encherirs[] = $encherir;
+            $encherir->addIdLot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEncherir(Encherir $encherir): self
+    {
+        if ($this->encherirs->removeElement($encherir)) {
+            $encherir->removeIdLot($this);
+        }
+
+        return $this;
+    }
+
+    public function getEstimationActuelle(): ?float
+    {
+        return $this->estimationActuelle;
+    }
+
+    public function setEstimationActuelle(?float $estimationActuelle): self
+    {
+        $this->estimationActuelle = $estimationActuelle;
+
+        return $this;
+    }
+
+    public function getPrixVente(): ?float
+    {
+        return $this->prixVente;
+    }
+
+    public function setPrixVente(?float $prixVente): self
+    {
+        $this->prixVente = $prixVente;
+
+        return $this;
+    }
+
+    public function getPrixReserve(): ?float
+    {
+        return $this->prixReserve;
+    }
+
+    public function setPrixReserve(?float $prixReserve): self
+    {
+        $this->prixReserve = $prixReserve;
+
+        return $this;
+    }
+
+    public function getDateEstimation(): ?\DateTimeInterface
+    {
+        return $this->dateEstimation;
+    }
+
+    public function setDateEstimation(?\DateTimeInterface $dateEstimation): self
+    {
+        $this->dateEstimation = $dateEstimation;
+
+        return $this;
+    }
+
+    public function getDateVente(): ?\DateTimeInterface
+    {
+        return $this->dateVente;
+    }
+
+    public function setDateVente(?\DateTimeInterface $dateVente): self
+    {
+        $this->dateVente = $dateVente;
 
         return $this;
     }

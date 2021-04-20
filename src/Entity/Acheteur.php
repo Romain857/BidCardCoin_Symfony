@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AcheteurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,16 @@ class Acheteur
      * @ORM\JoinColumn(nullable=false)
      */
     private $idPersonne;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Encherir::class, mappedBy="idAcheteur")
+     */
+    private $encherirs;
+
+    public function __construct()
+    {
+        $this->encherirs = new ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -109,6 +121,33 @@ class Acheteur
     public function setIdPersonne(personne $idPersonne): self
     {
         $this->idPersonne = $idPersonne;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Encherir[]
+     */
+    public function getEncherirs(): Collection
+    {
+        return $this->encherirs;
+    }
+
+    public function addEncherir(Encherir $encherir): self
+    {
+        if (!$this->encherirs->contains($encherir)) {
+            $this->encherirs[] = $encherir;
+            $encherir->addIdAcheteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEncherir(Encherir $encherir): self
+    {
+        if ($this->encherirs->removeElement($encherir)) {
+            $encherir->removeIdAcheteur($this);
+        }
 
         return $this;
     }
