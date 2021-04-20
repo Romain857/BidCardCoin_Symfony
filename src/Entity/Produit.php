@@ -20,16 +20,6 @@ class Produit
     private $id;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $estimationActuelle;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $prixVente;
-
-    /**
      * @ORM\Column(type="string", length=50)
      */
     private $nom;
@@ -48,11 +38,6 @@ class Produit
      * @ORM\Column(type="string", length=50)
      */
     private $style;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $dateVente;
 
     /**
      * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="produits")
@@ -108,30 +93,6 @@ class Produit
         return $this->id;
     }
 
-    public function getEstimationActuelle(): ?float
-    {
-        return $this->estimationActuelle;
-    }
-
-    public function setEstimationActuelle(float $estimationActuelle): self
-    {
-        $this->estimationActuelle = $estimationActuelle;
-
-        return $this;
-    }
-
-    public function getPrixVente(): ?float
-    {
-        return $this->prixVente;
-    }
-
-    public function setPrixVente(float $prixVente): self
-    {
-        $this->prixVente = $prixVente;
-
-        return $this;
-    }
-
     public function getNom(): ?string
     {
         return $this->nom;
@@ -180,17 +141,6 @@ class Produit
         return $this;
     }
 
-    public function getDateVente(): ?\DateTimeInterface
-    {
-        return $this->dateVente;
-    }
-
-    public function setDateVente(\DateTimeInterface $dateVente): self
-    {
-        $this->dateVente = $dateVente;
-
-        return $this;
-    }
 
     public function getIdLot(): ?Lot
     {
