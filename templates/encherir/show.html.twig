@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Encherir{% endblock %}
+
+{% block body %}
+    <h1>Encherir</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ encherir.id }}</td>
+            </tr>
+            <tr>
+                <th>PrixPropose</th>
+                <td>{{ encherir.prixPropose }}</td>
+            </tr>
+            <tr>
+                <th>Heure</th>
+                <td>{{ encherir.heure ? encherir.heure|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('encherir_index') }}">back to list</a>
+
+    <a href="{{ path('encherir_edit', {'id': encherir.id}) }}">edit</a>
+
+    {{ include('encherir/_delete_form.html.twig') }}
+{% endblock %}

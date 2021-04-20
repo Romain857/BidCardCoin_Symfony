@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Encherir{% endblock %}
+
+{% block body %}
+    <h1>Edit Encherir</h1>
+
+    {{ include('encherir/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('encherir_index') }}">back to list</a>
+
+    {{ include('encherir/_delete_form.html.twig') }}
+{% endblock %}
