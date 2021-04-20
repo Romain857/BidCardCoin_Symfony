@@ -22,7 +22,6 @@ class ProduitType extends AbstractType
             ->add('idAcheteur')
             ->add('idVendeur')
             ->add('idCategorie')
-            ->add('categories')
         ;
     }
 
