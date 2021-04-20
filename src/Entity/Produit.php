@@ -66,10 +66,6 @@ class Produit
      */
     private $idCategorie;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Categorie::class, mappedBy="idProduit")
-     */
-    private $categories;
 
     /**
      * @ORM\OneToMany(targetEntity=Estimation::class, mappedBy="idProduit")
@@ -84,7 +80,6 @@ class Produit
     public function __construct()
     {
         $this->idCategorie = new ArrayCollection();
-        $this->categories = new ArrayCollection();
         $this->estimations = new ArrayCollection();
     }
 
@@ -215,33 +210,6 @@ class Produit
     public function removeIdCategorie(Categorie $idCategorie): self
     {
         $this->idCategorie->removeElement($idCategorie);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Categorie[]
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Categorie $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-            $category->addIdProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Categorie $category): self
-    {
-        if ($this->categories->removeElement($category)) {
-            $category->removeIdProduit($this);
-        }
 
         return $this;
     }

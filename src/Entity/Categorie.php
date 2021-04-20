@@ -24,21 +24,7 @@ class Categorie
      */
     private $nom;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, mappedBy="idCategorie")
-     */
-    private $produits;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="categories")
-     */
-    private $idProduit;
-
-    public function __construct()
-    {
-        $this->produits = new ArrayCollection();
-        $this->idProduit = new ArrayCollection();
-    }
 
     public function __toString()
     {
@@ -58,57 +44,6 @@ class Categorie
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduits(): Collection
-    {
-        return $this->produits;
-    }
-
-    public function addProduit(Produit $produit): self
-    {
-        if (!$this->produits->contains($produit)) {
-            $this->produits[] = $produit;
-            $produit->addIdCategorie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produit $produit): self
-    {
-        if ($this->produits->removeElement($produit)) {
-            $produit->removeIdCategorie($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getIdProduit(): Collection
-    {
-        return $this->idProduit;
-    }
-
-    public function addIdProduit(Produit $idProduit): self
-    {
-        if (!$this->idProduit->contains($idProduit)) {
-            $this->idProduit[] = $idProduit;
-        }
-
-        return $this;
-    }
-
-    public function removeIdProduit(Produit $idProduit): self
-    {
-        $this->idProduit->removeElement($idProduit);
 
         return $this;
     }
