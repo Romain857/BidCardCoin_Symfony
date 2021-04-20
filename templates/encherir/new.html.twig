@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Encherir{% endblock %}
+
+{% block body %}
+    <h1>Create new Encherir</h1>
+
+    {{ include('encherir/_form.html.twig') }}
+
+    <a href="{{ path('encherir_index') }}">back to list</a>
+{% endblock %}

@@ -76,6 +76,11 @@ class Produit
      */
     private $estimations;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $region;
+
     public function __construct()
     {
         $this->idCategorie = new ArrayCollection();
@@ -267,6 +272,18 @@ class Produit
                 $estimation->setIdProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(string $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }
