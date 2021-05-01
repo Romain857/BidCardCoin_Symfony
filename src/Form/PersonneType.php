@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Personne;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,10 +14,11 @@ class PersonneType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('prenom')
+            ->add('username')
             ->add('mail')
             ->add('numeroTel')
-            ->add('motDePasse')
+            ->add('password', PasswordType::class)
+            ->add('confirm_password', PasswordType::class)
             ->add('adresse')
             ->add('codePostal')
             ->add('age')

@@ -4,11 +4,18 @@ namespace App\Entity;
 
 use App\Repository\PersonneRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PersonneRepository::class)
+ * @UniqueEntity(
+ *     fields={"mail"},
+ *     message="Le mail que vous avez indiqué est déjà utilisé"
+ * )
  */
-class Personne
+class Personne implements UserInterface
 {
     /**
      * @ORM\Id
@@ -25,10 +32,11 @@ class Personne
     /**
      * @ORM\Column(type="string", length=45)
      */
-    private $prenom;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=45)
+     * @Assert\Email()
      */
     private $mail;
 
@@ -38,9 +46,9 @@ class Personne
     private $numeroTel;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=255)
      */
-    private $motDePasse;
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -56,6 +64,10 @@ class Personne
      * @ORM\Column(type="integer")
      */
     private $age;
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Mot de passe non identique")
+     */
+    public $confirm_password;
 
     public function __toString()
     {
@@ -79,14 +91,14 @@ class Personne
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getUsername(): ?string
     {
-        return $this->prenom;
+        return $this->username;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setUsername(string $username): self
     {
-        $this->prenom = $prenom;
+        $this->username = $username;
 
         return $this;
     }
@@ -115,14 +127,14 @@ class Personne
         return $this;
     }
 
-    public function getMotDePasse(): ?string
+    public function getPassword(): ?string
     {
-        return $this->motDePasse;
+        return $this->password;
     }
 
-    public function setMotDePasse(string $motDePasse): self
+    public function setPassword(string $password): self
     {
-        $this->motDePasse = $motDePasse;
+        $this->password = $password;
 
         return $this;
     }
@@ -161,5 +173,30 @@ class Personne
         $this->age = $age;
 
         return $this;
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+//    public function getPassword()
+//    {
+//        // TODO: Implement getPassword() method.
+//    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+//    public function getUsername()
+//    {
+//        // TODO: Implement getUsername() method.
+//    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

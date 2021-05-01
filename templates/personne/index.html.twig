@@ -10,10 +10,10 @@
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
-                <th>Prenom</th>
+                <th>Username</th>
                 <th>Mail</th>
                 <th>NumeroTel</th>
-                <th>MotDePasse</th>
+                <th>Password</th>
                 <th>Adresse</th>
                 <th>CodePostal</th>
                 <th>Age</th>
@@ -25,10 +25,10 @@
             <tr>
                 <td>{{ personne.id }}</td>
                 <td>{{ personne.nom }}</td>
-                <td>{{ personne.prenom }}</td>
+                <td>{{ personne.username }}</td>
                 <td>{{ personne.mail }}</td>
                 <td>{{ personne.numeroTel }}</td>
-                <td>{{ personne.motDePasse }}</td>
+                <td>{{ personne.password }}</td>
                 <td>{{ personne.adresse }}</td>
                 <td>{{ personne.codePostal }}</td>
                 <td>{{ personne.age }}</td>
@@ -45,5 +45,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('personne_new') }}">Create new</a>
+    <a href="{{ path('inscription') }}">Create new</a>
 {% endblock %}
