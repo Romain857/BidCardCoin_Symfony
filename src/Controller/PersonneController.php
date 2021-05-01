@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Personne;
 use App\Form\PersonneType;
 use App\Repository\PersonneRepository;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/personne")
@@ -26,9 +28,9 @@ class PersonneController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="personne_new", methods={"GET","POST"})
+     * @Route("/inscription", name="inscription", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $personne = new Personne();
         $form = $this->createForm(PersonneType::class, $personne);
@@ -36,10 +38,12 @@ class PersonneController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $hash = $encoder->encodePassword($personne, $personne->getPassword());
+            $personne->setPassword($hash);
             $entityManager->persist($personne);
             $entityManager->flush();
 
-            return $this->redirectToRoute('personne_index');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('personne/new.html.twig', [
@@ -47,6 +51,18 @@ class PersonneController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/connexion", name="login")
+     */
+    public function login(){
+        return $this->render('personne/login.html.twig');
+    }
+
+    /**
+     * @Route("/deconnexion", name="logout")
+     */
+    public function logout(){ }
 
     /**
      * @Route("/{id}", name="personne_show", methods={"GET"})

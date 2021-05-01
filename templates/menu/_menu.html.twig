@@ -4,7 +4,12 @@
     <a class="navbar-brand" href="{{ path("produit_index") }}">Produit</a>
     <a class="navbar-brand" href="{{ path("produit_new") }}">Vendre</a>
 
-    <a class="navbar-brand" href="{{ path("personne_new") }}"><i class="fas fa-user"></i></a>
+    <a class="navbar-brand" href="{{ path("inscription") }}"><i class="fas fa-user"></i></a>
+    {% if not app.user %}
+        <a href="{{ path('login') }}" class="nav-link">Connexion</a>
+    {% else %}
+        <a href="{{ path('logout') }}" class="nav-link">Deconnexion</a>
+    {% endif %}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
