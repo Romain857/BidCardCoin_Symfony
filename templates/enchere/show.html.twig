@@ -16,12 +16,20 @@
                 <td>{{ enchere.nom }}</td>
             </tr>
             <tr>
-                <th>Heure</th>
-                <td>{{ enchere.heure }}</td>
+                <th>HeureDebut</th>
+                <td>{{ enchere.heureDebut ? enchere.heureDebut|date('H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Date</th>
-                <td>{{ enchere.date ? enchere.date|date('Y-m-d') : '' }}</td>
+                <th>HeureFin</th>
+                <td>{{ enchere.heureFin ? enchere.heureFin|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateDebut</th>
+                <td>{{ enchere.dateDebut ? enchere.dateDebut|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateFin</th>
+                <td>{{ enchere.dateFin ? enchere.dateFin|date('Y-m-d') : '' }}</td>
             </tr>
         </tbody>
     </table>

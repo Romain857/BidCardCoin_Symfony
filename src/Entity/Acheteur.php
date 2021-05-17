@@ -46,7 +46,7 @@ class Acheteur
     private $idPersonne;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Encherir::class, mappedBy="idAcheteur")
+     * @ORM\OneToMany(targetEntity=Encherir::class, mappedBy="idAcheteur")
      */
     private $encherirs;
 
@@ -137,7 +137,7 @@ class Acheteur
     {
         if (!$this->encherirs->contains($encherir)) {
             $this->encherirs[] = $encherir;
-            $encherir->addIdAcheteur($this);
+            $encherir->setIdAcheteur($this);
         }
 
         return $this;
@@ -146,7 +146,9 @@ class Acheteur
     public function removeEncherir(Encherir $encherir): self
     {
         if ($this->encherirs->removeElement($encherir)) {
-            $encherir->removeIdAcheteur($this);
+            if ($encherir->getIdAcheteur() === $this) {
+                $encherir->setIdAcheteur(null);
+            }
         }
 
         return $this;

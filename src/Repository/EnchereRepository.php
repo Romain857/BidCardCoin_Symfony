@@ -35,7 +35,14 @@ class EnchereRepository extends ServiceEntityRepository
         ;
     }
     */
-
+public function aff(){
+    return $this->getEntityManager()->createQuery(
+        'SELECT v
+            FROM App\Entity\Vente v
+            WHERE (v.dateDebut <= :date ) AND (v.dateFin >= :date )
+            ORDER BY v.dateFin ASC, v.heureFin ASC'
+    )->setParameter('date', date('Y-m-d H:i:s'))->getResult();
+}
     /*
     public function findOneBySomeField($value): ?Enchere
     {

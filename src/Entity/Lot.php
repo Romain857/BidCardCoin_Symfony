@@ -40,7 +40,7 @@ class Lot
     private $produits;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Encherir::class, mappedBy="idLot")
+     * @ORM\OneToMany (targetEntity=Encherir::class, mappedBy="idLot")
      */
     private $encherirs;
 
@@ -163,7 +163,7 @@ class Lot
     {
         if (!$this->encherirs->contains($encherir)) {
             $this->encherirs[] = $encherir;
-            $encherir->addIdLot($this);
+            $encherir->setIdLot($this);
         }
 
         return $this;
@@ -172,7 +172,9 @@ class Lot
     public function removeEncherir(Encherir $encherir): self
     {
         if ($this->encherirs->removeElement($encherir)) {
-            $encherir->removeIdLot($this);
+            if ($encherir->getIdLot() === $this) {
+                $encherir->setIdLot(null);
+            }
         }
 
         return $this;

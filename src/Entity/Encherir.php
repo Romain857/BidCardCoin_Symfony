@@ -44,6 +44,10 @@ class Encherir
         $this->idAcheteur = new ArrayCollection();
         $this->idLot = new ArrayCollection();
     }
+    public function __toString()
+    {
+        return (string)($this->getPrixPropose());
+    }
 
     public function getId(): ?int
     {

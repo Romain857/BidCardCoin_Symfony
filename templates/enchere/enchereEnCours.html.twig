@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enchere en cours{% endblock %}
+
+{% block body %}
+    <h1>Enchere en cours</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>HeureDebut</th>
+            <th>HeureFin</th>
+            <th>DateDebut</th>
+            <th>DateFin</th>
+            <th>Lots</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for enchere in encheres %}
+            {% if enchere.dateFin|date('Y-m-d') == '2016-01-01' %}
+                <tr>
+                    <td>{{ enchere.id }}</td>
+                    <td>{{ enchere.nom }}</td>
+                    <td>{{ enchere.heureDebut ? enchere.heureDebut|date('H:i:s') : '' }}</td>
+                    <td>{{ enchere.heureFin ? enchere.heureFin|date('H:i:s') : '' }}</td>
+                    <td>{{ enchere.dateDebut ? enchere.dateDebut|date('Y-m-d') : '' }}</td>
+                    {% if enchere.dateFin|date('Y-m-d') == '2016-01-01' %}
+                        <td>undefined</td>
+                    {% else %}
+                        <td>{{ enchere.dateFin ? enchere.dateFin|date('Y-m-d') : '' }}</td>
+                    {% endif %}
+                    <td><a href="{{ path("voirLots",{'id': enchere.id}) }}">voir lots</a></td>
+                </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
