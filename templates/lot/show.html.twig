@@ -39,6 +39,14 @@
                 <th>DateVente</th>
                 <td>{{ lot.dateVente ? lot.dateVente|date('Y-m-d') : '' }}</td>
             </tr>
+            <tr>
+                <th>Enchère maximum</th>
+                {% if bestEnchere %}
+                <td>{{ bestEnchere.prixPropose }}</td>
+                {% else %}
+                <td>undifined</td>
+                {% endif %}
+            </tr>
         </tbody>
     </table>
 

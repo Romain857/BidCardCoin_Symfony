@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Encherir;
 use App\Entity\Lot;
 use App\Entity\Produit;
 use App\Form\LotType;
 use App\Repository\EnchereRepository;
+use App\Repository\EncherirRepository;
 use App\Repository\LotRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,10 +23,27 @@ class LotController extends AbstractController
     /**
      * @Route("/", name="lot_index", methods={"GET"})
      */
-    public function index(LotRepository $lotRepository): Response
+    public function index(LotRepository $lotRepository, EncherirRepository $encherirRepository): Response
     {
+        foreach ($lotRepository->findAll() as $i => $lot ) {
+            $encherirByLot = $encherirRepository->findBy(
+                ['idLot' => $lot->getId()],
+                ['prixPropose' => 'DESC'], 1, 0);
+            if ($encherirByLot) {
+                $bestEncherir[$i] = $encherirByLot[0];
+            }
+            else {
+                $encherirVide = new Encherir();
+                $encherirVide->setIdLot($lotRepository->findAll()[$i]);
+                $encherirVide->setPrixPropose(-1);
+                $bestEncherir[$i] = $encherirVide;
+            }
+
+        }
+        $bestEncherir = array_values($bestEncherir);
         return $this->render('lot/index.html.twig', [
             'lots' => $lotRepository->findAll(),
+            'listeBestEncheres' => $bestEncherir
         ]);
     }
 
@@ -54,14 +73,21 @@ class LotController extends AbstractController
     /**
      * @Route("/{id}", name="lot_show", methods={"GET"})
      */
-    public function show(Lot $lot, EnchereRepository $encheres): Response
+    public function show(Lot $lot, EncherirRepository $encherirRepository): Response
     {
+        if($encherirRepository->bestEnchere($lot->getId()) == null){
+            $bestEnchere = 0;
+        }
+        else{
+            $bestEnchere = $encherirRepository->bestEnchere($lot->getId())[0];
+        }
+
         return $this->render('lot/show.html.twig', [
             'lot' => $lot,
-            'bestEnchere' => $encheres->findBy( //prend toutes les enchères
-                ['idLot' => $lot->getId()], //correspondant à l'idLot correspondant
-                ['estimation_actuelle' =>'DESC']) //ordonnés avec le montant décroissant
-            [0]
+            'encherir' => $encherirRepository->findBy(
+                ['idLot' => $lot->getId()]
+            ),
+            'bestEnchere' =>$bestEnchere,
         ]);
     }
 

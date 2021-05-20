@@ -35,7 +35,7 @@ class EncherirRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function BestEnchere($idVente)
+    public function bestEnchere($idLot)
     {
         $query = $this->getEntityManager()->createQuery(
             'SELECT e 

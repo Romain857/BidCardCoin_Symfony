@@ -4,7 +4,6 @@
 
 {% block body %}
     <h1>Lot index</h1>
-{#<h1>L'enchère la plus élevé est {{ bestEnchere.prixPropose }}</h1>#}
 
     <table class="table">
         <thead>
@@ -17,6 +16,7 @@
                 <th>PrixReserve</th>
                 <th>DateEstimation</th>
                 <th>DateVente</th>
+                <th>Best Enchère</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -31,6 +31,17 @@
                 <td>{{ lot.prixReserve }}</td>
                 <td>{{ lot.dateEstimation ? lot.dateEstimation|date('Y-m-d') : '' }}</td>
                 <td>{{ lot.dateVente ? lot.dateVente|date('Y-m-d') : '' }}</td>
+                <td>
+                {% for bestEnchere in listeBestEncheres %}
+                    {% if bestEnchere.idLot == lot %}
+                        {% if bestEnchere.prixPropose != -1 %}
+                            {{ bestEnchere.prixPropose }}
+                        {% else %}
+                            Aucune
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('lot_show', {'id': lot.id}) }}">show</a>
                     <a href="{{ path('lot_edit', {'id': lot.id}) }}">edit</a>
