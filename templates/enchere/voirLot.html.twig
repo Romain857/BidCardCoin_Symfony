@@ -31,7 +31,7 @@
                 <td>{{ lot.dateVente ? lot.dateVente|date('Y-m-d') : '' }}</td>
                 <td><a href="{{ path("voirProduits",{'id': lot.id}) }}">Voir produit</a></td>
                 <td>
-                    <a href="{{ path('encherir_new') }}">encherir</a>
+                    <a href="{{ path('encherir_new',{'id': lot.id} ) }}">encherir</a>
                 </td>
             </tr>
         {% else %}

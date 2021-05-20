@@ -30,20 +30,15 @@ class Encherir
     private $heure;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Acheteur::class, inversedBy="encherirs")
+     * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="encherirs")
      */
-    private $idAcheteur;
+    private $idPersonne;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Lot::class, inversedBy="encherirs")
+     * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="encherirs")
      */
     private $idLot;
 
-    public function __construct()
-    {
-        $this->idAcheteur = new ArrayCollection();
-        $this->idLot = new ArrayCollection();
-    }
     public function __toString()
     {
         return (string)($this->getPrixPropose());
@@ -78,50 +73,26 @@ class Encherir
         return $this;
     }
 
-    /**
-     * @return Collection|Acheteur[]
-     */
-    public function getIdAcheteur(): Collection
+    public function getIdPersonne(): ?personne
     {
-        return $this->idAcheteur;
+        return $this->idPersonne;
     }
 
-    public function addIdAcheteur(Acheteur $idAcheteur): self
+    public function setIdPersonne(?personne $idPersonne): self
     {
-        if (!$this->idAcheteur->contains($idAcheteur)) {
-            $this->idAcheteur[] = $idAcheteur;
-        }
+        $this->idPersonne = $idPersonne;
 
         return $this;
     }
 
-    public function removeIdAcheteur(Acheteur $idAcheteur): self
-    {
-        $this->idAcheteur->removeElement($idAcheteur);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Lot[]
-     */
-    public function getIdLot(): Collection
+    public function getIdLot(): ?lot
     {
         return $this->idLot;
     }
 
-    public function addIdLot(Lot $idLot): self
+    public function setIdLot(?lot $idLot): self
     {
-        if (!$this->idLot->contains($idLot)) {
-            $this->idLot[] = $idLot;
-        }
-
-        return $this;
-    }
-
-    public function removeIdLot(Lot $idLot): self
-    {
-        $this->idLot->removeElement($idLot);
+        $this->idLot = $idLot;
 
         return $this;
     }
