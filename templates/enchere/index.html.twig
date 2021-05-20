@@ -10,9 +10,12 @@
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
-                <th>Heure</th>
-                <th>Date</th>
+                <th>HeureDebut</th>
+                <th>HeureFin</th>
+                <th>DateDebut</th>
+                <th>DateFin</th>
                 <th>actions</th>
+                <th>Lots</th>
             </tr>
         </thead>
         <tbody>
@@ -20,16 +23,23 @@
             <tr>
                 <td>{{ enchere.id }}</td>
                 <td>{{ enchere.nom }}</td>
-                <td>{{ enchere.heure }}</td>
-                <td>{{ enchere.date ? enchere.date|date('Y-m-d') : '' }}</td>
+                <td>{{ enchere.heureDebut ? enchere.heureDebut|date('H:i:s') : '' }}</td>
+                <td>{{ enchere.heureFin ? enchere.heureFin|date('H:i:s') : '' }}</td>
+                <td>{{ enchere.dateDebut ? enchere.dateDebut|date('Y-m-d') : '' }}</td>
+            {% if enchere.dateFin|date('Y-m-d') == '2016-01-01'%}
+                <td>undefined</td>
+                {% else %}
+                <td>{{ enchere.dateFin ? enchere.dateFin|date('Y-m-d') : '' }}</td>
+            {% endif %}
                 <td>
                     <a href="{{ path('enchere_show', {'id': enchere.id}) }}">show</a>
                     <a href="{{ path('enchere_edit', {'id': enchere.id}) }}">edit</a>
                 </td>
+                <td><a href="{{ path("voirLots",{'id': enchere.id}) }}">voir lots</a></td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -25,14 +25,24 @@ class Enchere
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="time")
      */
-    private $heure;
+    private $heureDebut;
+
+    /**
+     * @ORM\Column(type="time")
+     */
+    private $heureFin;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $date;
+    private $dateDebut;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $dateFin;
 
     /**
      * @ORM\OneToMany(targetEntity=Lieu::class, mappedBy="enchere")
@@ -78,26 +88,50 @@ class Enchere
         return $this;
     }
 
-    public function getHeure(): ?string
+    public function getHeureDebut(): ?\DateTimeInterface
     {
-        return $this->heure;
+        return $this->heureDebut;
     }
 
-    public function setHeure(string $heure): self
+    public function setHeureDebut(\DateTimeInterface $heureDebut): self
     {
-        $this->heure = $heure;
+        $this->heureDebut = $heureDebut;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getHeureFin(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->heureFin;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setHeureFin(\DateTimeInterface $heureFin): self
     {
-        $this->date = $date;
+        $this->heureFin = $heureFin;
+
+        return $this;
+    }
+
+    public function getDateDebut(): ?\DateTimeInterface
+    {
+        return $this->dateDebut;
+    }
+
+    public function setDateDebut(\DateTimeInterface $dateDebut): self
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(\DateTimeInterface $dateFin): self
+    {
+        $this->dateFin = $dateFin;
 
         return $this;
     }

@@ -35,7 +35,18 @@ class EncherirRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function bestEnchere($idLot)
+    {
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT e 
+            FROM App\Entity\Encherir e
+            WHERE (e.idLot = :id)
+            ORDER BY e.prixPropose DESC'
+        )->setParameter('id', $idLot)->setMaxResults(1)
+            ->getResult();
 
+        return $query;
+    }
     /*
     public function findOneBySomeField($value): ?Encherir
     {

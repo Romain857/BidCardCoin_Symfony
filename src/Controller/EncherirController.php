@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Acheteur;
 use App\Entity\Encherir;
+use App\Entity\Lot;
+use App\Entity\Personne;
 use App\Form\EncherirType;
 use App\Repository\EncherirRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/encherir")
@@ -26,13 +30,26 @@ class EncherirController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="encherir_new", methods={"GET","POST"})
+     * @Route("/{id}/new", name="encherir_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Lot $lot, EncherirRepository $encherirRepository): Response
     {
         $encherir = new Encherir();
-        $form = $this->createForm(EncherirType::class, $encherir);
+        $encherir -> setIdLot($lot);
+        $encherir -> setIdPersonne($this->getUser());
+        $encherir->setHeure(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
+
+        if($encherirRepository->bestEnchere($lot->getId()) == null){
+            $bestEnchere = 0;
+        }
+        else{
+            $bestEnchere = $encherirRepository->bestEnchere($lot->getId())[0];
+        }
+
+        $form = $this->createForm(EncherirType::class, $encherir, array('bestEnchere' => $bestEnchere));
         $form->handleRequest($request);
+
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -43,6 +60,7 @@ class EncherirController extends AbstractController
         }
 
         return $this->render('encherir/new.html.twig', [
+            'bestEnchere' => $encherirRepository->bestEnchere($lot->getId()),
             'encherir' => $encherir,
             'form' => $form->createView(),
         ]);

@@ -13,8 +13,10 @@ class EnchereType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('heure')
-            ->add('date')
+            ->add('heureDebut')
+            ->add('heureFin')
+            ->add('dateDebut')
+            ->add('dateFin')
         ;
     }
 

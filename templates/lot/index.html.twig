@@ -11,6 +11,12 @@
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Description</th>
+                <th>EstimationActuelle</th>
+                <th>PrixVente</th>
+                <th>PrixReserve</th>
+                <th>DateEstimation</th>
+                <th>DateVente</th>
+                <th>Best Enchère</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,6 +26,22 @@
                 <td>{{ lot.id }}</td>
                 <td>{{ lot.nom }}</td>
                 <td>{{ lot.description }}</td>
+                <td>{{ lot.estimationActuelle }}</td>
+                <td>{{ lot.prixVente }}</td>
+                <td>{{ lot.prixReserve }}</td>
+                <td>{{ lot.dateEstimation ? lot.dateEstimation|date('Y-m-d') : '' }}</td>
+                <td>{{ lot.dateVente ? lot.dateVente|date('Y-m-d') : '' }}</td>
+                <td>
+                {% for bestEnchere in listeBestEncheres %}
+                    {% if bestEnchere.idLot == lot %}
+                        {% if bestEnchere.prixPropose != -1 %}
+                            {{ bestEnchere.prixPropose }}
+                        {% else %}
+                            Aucune
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('lot_show', {'id': lot.id}) }}">show</a>
                     <a href="{{ path('lot_edit', {'id': lot.id}) }}">edit</a>
@@ -27,7 +49,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="9">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -1,0 +1,45 @@
+{% extends"base.html.twig" %}
+
+{% block Title %} Les lots de l'enchere {{ enchere.nom }} {% endblock %}
+
+{% block body %}
+
+    <h1>Les lots {{ enchere.nom }}</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>EstimationActuelle</th>
+            <th>PrixVente</th>
+            <th>PrixReserve</th>
+            <th>DateEstimation</th>
+            <th>DateVente</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lot in lots %}
+            <tr>
+                <td>{{ lot.id }}</td>
+                <td>{{ lot.nom }}</td>
+                <td>{{ lot.description }}</td>
+                <td>{{ lot.estimationActuelle }}</td>
+                <td>{{ lot.prixVente }}</td>
+                <td>{{ lot.prixReserve }}</td>
+                <td>{{ lot.dateEstimation ? lot.dateEstimation|date('Y-m-d') : '' }}</td>
+                <td>{{ lot.dateVente ? lot.dateVente|date('Y-m-d') : '' }}</td>
+                <td><a href="{{ path("voirProduits",{'id': lot.id}) }}">Voir produit</a></td>
+                <td>
+                    <a href="{{ path('encherir_new',{'id': lot.id} ) }}">encherir</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

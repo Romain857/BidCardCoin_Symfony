@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Enchere;
 use App\Form\EnchereType;
 use App\Repository\EnchereRepository;
+use App\Repository\LotRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +22,16 @@ class EnchereController extends AbstractController
     public function index(EnchereRepository $enchereRepository): Response
     {
         return $this->render('enchere/index.html.twig', [
+            'encheres' => $enchereRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/enchereEnCours", name="enchereEnCours", methods={"GET"})
+     */
+    public function enchereEnCours(EnchereRepository $enchereRepository): Response
+    {
+        return $this->render('enchere/enchereEnCours.html.twig', [
             'encheres' => $enchereRepository->findAll(),
         ]);
     }
@@ -90,5 +101,20 @@ class EnchereController extends AbstractController
         }
 
         return $this->redirectToRoute('enchere_index');
+    }
+
+    /**
+     * @Route ("/lot/{id}", name="voirLots")
+     */
+    public function voirLots($id, Enchere $enchere, LotRepository $lotRepository){
+        $repo=$this->getDoctrine()->getRepository(Enchere::class);
+        $enchere=$repo->find($id);
+
+        $lots=$enchere->getLots();
+
+        return $this->render("enchere/voirLot.html.twig",[
+            "lots"=>$lots,
+            "enchere"=>$enchere,
+        ]);
     }
 }

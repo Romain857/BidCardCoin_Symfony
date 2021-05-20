@@ -19,6 +19,34 @@
                 <th>Description</th>
                 <td>{{ lot.description }}</td>
             </tr>
+            <tr>
+                <th>EstimationActuelle</th>
+                <td>{{ lot.estimationActuelle }}</td>
+            </tr>
+            <tr>
+                <th>PrixVente</th>
+                <td>{{ lot.prixVente }}</td>
+            </tr>
+            <tr>
+                <th>PrixReserve</th>
+                <td>{{ lot.prixReserve }}</td>
+            </tr>
+            <tr>
+                <th>DateEstimation</th>
+                <td>{{ lot.dateEstimation ? lot.dateEstimation|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateVente</th>
+                <td>{{ lot.dateVente ? lot.dateVente|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Enchère maximum</th>
+                {% if bestEnchere %}
+                <td>{{ bestEnchere.prixPropose }}</td>
+                {% else %}
+                <td>undifined</td>
+                {% endif %}
+            </tr>
         </tbody>
     </table>
 

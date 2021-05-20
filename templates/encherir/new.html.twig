@@ -3,9 +3,15 @@
 {% block title %}New Encherir{% endblock %}
 
 {% block body %}
+    {% if app.user %}
     <h1>Create new Encherir</h1>
 
     {{ include('encherir/_form.html.twig') }}
 
     <a href="{{ path('encherir_index') }}">back to list</a>
+    
+    {% else %}
+    <p>Connectez-vous</p>
+    <a href="{{ path('login') }}">Connexion</a>
+    {% endif %}
 {% endblock %}
