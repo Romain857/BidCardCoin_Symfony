@@ -1,15 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
     <a class="navbar-brand" href="{{ path("home") }}"><i class="fas fa-gavel"></i> BidCardCoin</a>
-    <a class="navbar-brand" href="{{ path("enchere_index") }}"><i class="fas fa-signal-stream"></i> Enchere en live</a>
-    {# <a class="navbar-brand" href="{{ path("enchereEnCours") }}"><i class="fas fa-hourglass-start"></i> Enchères en Cours</a> #}
-    <a class="navbar-brand" href="{{ path("produit_new") }}"><i class="fas fa-bullseye"></i> Vendre</a>
-    {# <a class="navbar-brand" href="{{ path("lot_index") }}">Lot</a> #}
-    {# <a class="navbar-brand" href="{{ path("produit_index") }}">Produit</a> #}
-    {# <a class="navbar-brand" href="{{ path("categorie_index") }}">Categorie</a> #}
-    {# <a class="navbar-brand" href="{{ path("lieu_index") }}">Lieu</a> #}
+    <a class="navbar-brand" href="{{ path("enchere_index") }}"><i class="fas fa-signal-stream"></i> Encheres en live</a>
+    <a class="navbar-brand" href="{{ path("lot_index") }}">Lots</a>
+    <a class="navbar-brand" href="{{ path("produit_index") }}">Produits</a>
 
     {% if app.user %}
-        <a class="navbar-brand" href="{{ path("encherir_index") }}">Vos enchères</a>
+        <a class="navbar-brand" href="{{ path("produit_new") }}"><i class="fas fa-bullseye"></i> Vendre</a>
         <div class="navbar-nav ml-auto">
             <a class="navbar-brand">{{ app.user.username }}</a>
             <a href="{{ path('logout') }}" class="navbar-brand nav-link"><i class="fas fa-sign-out-alt"></i> Deconnexion</a>
