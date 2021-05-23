@@ -34,7 +34,7 @@
                 <td>{{ lot.dateEstimation ? lot.dateEstimation|date('Y-m-d') : '' }}</td>
                 <td>{{ lot.dateVente ? lot.dateVente|date('Y-m-d') : '' }}</td>
                 {% if app.user %}
-                    <td><a href="{{ path('lot_show', {'id': lot.id}) }}">en détail</a></td>
+                    <td><a class="btn btn-outline-dark" href="{{ path('lot_show', {'id': lot.id}) }}"><i class="fas fa-info"> détail</i></a></td>
                     <td>
                         <a href="{{ path('lot_show', {'id': lot.id}) }}">Afficher</a>
                         <a href="{{ path('lot_edit', {'id': lot.id}) }}">Modifier</a>
