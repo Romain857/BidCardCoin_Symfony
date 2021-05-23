@@ -3,7 +3,7 @@
 {% block title %}Lot index{% endblock %}
 
 {% block body %}
-    <h1>Lot index</h1>
+    <h1>Liste des Lots</h1>
 
     <table class="table">
         <thead>
@@ -16,7 +16,7 @@
                 <th>PrixReserve</th>
                 <th>DateEstimation</th>
                 <th>DateVente</th>
-                <th>Best Enchère</th>
+                <th>Enchère la plus élevé</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -31,7 +31,7 @@
                 <td>{{ lot.prixReserve }}</td>
                 <td>{{ lot.dateEstimation ? lot.dateEstimation|date('Y-m-d') : '' }}</td>
                 <td>{{ lot.dateVente ? lot.dateVente|date('Y-m-d') : '' }}</td>
-                <td>
+                <td><b>
                 {% for bestEnchere in listeBestEncheres %}
                     {% if bestEnchere.idLot == lot %}
                         {% if bestEnchere.prixPropose != -1 %}
@@ -43,17 +43,17 @@
                 {% endfor %}
                 </td>
                 <td>
-                    <a href="{{ path('lot_show', {'id': lot.id}) }}">show</a>
-                    <a href="{{ path('lot_edit', {'id': lot.id}) }}">edit</a>
+                    <a href="{{ path('lot_show', {'id': lot.id}) }}">Afficher</a>
+                    <a href="{{ path('lot_edit', {'id': lot.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td colspan="9">Créer un nouveau lot</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('lot_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('lot_new') }}">Créer un nouveau lot</a>
 {% endblock %}

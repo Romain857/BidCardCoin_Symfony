@@ -3,11 +3,11 @@
 {% block title %}Edit Vendeur{% endblock %}
 
 {% block body %}
-    <h1>Edit Vendeur</h1>
+    <h1>Modifier le Vendeur</h1>
 
     {{ include('vendeur/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('vendeur_index') }}">back to list</a>
+    <a href="{{ path('vendeur_index') }}">Retourner à la liste</a>
 
     {{ include('vendeur/_delete_form.html.twig') }}
 {% endblock %}

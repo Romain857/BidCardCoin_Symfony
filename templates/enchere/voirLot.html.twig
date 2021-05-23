@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <h1>Les lots {{ enchere.nom }}</h1>
+    <h1>Les lots de {{ enchere.nom }}</h1>
     <table class="table">
         <thead>
         <tr>
@@ -16,6 +16,10 @@
             <th>PrixReserve</th>
             <th>DateEstimation</th>
             <th>DateVente</th>
+            {% if app.user %}
+                <th>Enchère la plus élevé</th>
+                <th>actions</th>
+            {% endif %}
         </tr>
         </thead>
         <tbody>
@@ -29,17 +33,30 @@
                 <td>{{ lot.prixReserve }}</td>
                 <td>{{ lot.dateEstimation ? lot.dateEstimation|date('Y-m-d') : '' }}</td>
                 <td>{{ lot.dateVente ? lot.dateVente|date('Y-m-d') : '' }}</td>
-                <td><a href="{{ path("voirProduits",{'id': lot.id}) }}">Voir produit</a></td>
-                <td>
-                    <a href="{{ path('encherir_new',{'id': lot.id} ) }}">encherir</a>
+                {% if app.user %}
+                    <td><a href="{{ path('lot_show', {'id': lot.id}) }}">en détail</a></td>
+                    <td>
+                        <a href="{{ path('lot_show', {'id': lot.id}) }}">Afficher</a>
+                        <a href="{{ path('lot_edit', {'id': lot.id}) }}">Modifier</a>
+                    </td>
+                {% endif %}
+                <td><a class="btn btn-outline-success" href="{{ path("voirProduits",{'id': lot.id}) }}">Voir produit</a>
                 </td>
+                {% if app.user %}
+                    <td>
+                        <a class="btn btn-outline-warning"
+                           href="{{ path('encherir_new',{'id': lot.id} ) }}">encherir</a>
+                    </td>
+                {% endif %}
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Pas de résultats</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
+    {% if app.user %}
+        <a class="btn btn-primary" href="{{ path('lot_new') }}">Créer un nouveau lot</a>
+    {% endif %}
 {% endblock %}

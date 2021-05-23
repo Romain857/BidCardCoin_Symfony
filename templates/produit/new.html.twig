@@ -3,9 +3,13 @@
 {% block title %}New Produit{% endblock %}
 
 {% block body %}
-    <h1>Create new Produit</h1>
+    <h1>Mettre en vente un nouveau Produit</h1>
+    {% if app.user %}
+        {{ include('produit/_form.html.twig') }}
 
-    {{ include('produit/_form.html.twig') }}
-
-    <a href="{{ path('produit_index') }}">back to list</a>
+        <a href="{{ path('produit_index') }}">Retourner à la liste</a>
+    {% else %}
+        <h2>Veuillez vous connectez pour accéder à l'ensemble du site</h2>
+        <a class="btn btn-outline-success" href="{{ path('login') }}">Connectez vous</a>
+    {% endif %}
 {% endblock %}

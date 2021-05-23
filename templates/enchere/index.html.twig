@@ -3,20 +3,22 @@
 {% block title %}Enchere index{% endblock %}
 
 {% block body %}
-    <h1>Enchere index</h1>
-
+    <h1>Liste des Encheres</h1>
+    <a class="btn btn-success" href="{{ path("enchereEnCours") }}">Uniquement les Enchères en cours</a>
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>HeureDebut</th>
-                <th>HeureFin</th>
-                <th>DateDebut</th>
-                <th>DateFin</th>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>HeureDebut</th>
+            <th>HeureFin</th>
+            <th>DateDebut</th>
+            <th>DateFin</th>
+            {% if app.user %}
                 <th>actions</th>
-                <th>Lots</th>
-            </tr>
+            {% endif %}
+            <th>Lots</th>
+        </tr>
         </thead>
         <tbody>
         {% for enchere in encheres %}
@@ -26,24 +28,28 @@
                 <td>{{ enchere.heureDebut ? enchere.heureDebut|date('H:i:s') : '' }}</td>
                 <td>{{ enchere.heureFin ? enchere.heureFin|date('H:i:s') : '' }}</td>
                 <td>{{ enchere.dateDebut ? enchere.dateDebut|date('Y-m-d') : '' }}</td>
-            {% if enchere.dateFin|date('Y-m-d') == '2016-01-01'%}
-                <td>undefined</td>
+                {% if enchere.dateFin|date('Y-m-d') == '2016-01-01' %}
+                    <td>undefined</td>
                 {% else %}
-                <td>{{ enchere.dateFin ? enchere.dateFin|date('Y-m-d') : '' }}</td>
-            {% endif %}
-                <td>
-                    <a href="{{ path('enchere_show', {'id': enchere.id}) }}">show</a>
-                    <a href="{{ path('enchere_edit', {'id': enchere.id}) }}">edit</a>
+                    <td>{{ enchere.dateFin ? enchere.dateFin|date('Y-m-d') : '' }}</td>
+                {% endif %}
+                {% if app.user %}
+                    <td>
+                        <a href="{{ path('enchere_show', {'id': enchere.id}) }}">Afficher</a>
+                        <a href="{{ path('enchere_edit', {'id': enchere.id}) }}">Modifier</a>
+                    </td>
+                {% endif %}
+                <td><a class="btn btn-outline-success" href="{{ path("voirLots",{'id': enchere.id}) }}">Voir lots</a>
                 </td>
-                <td><a href="{{ path("voirLots",{'id': enchere.id}) }}">voir lots</a></td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Pas de résultats</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('enchere_new') }}">Create new</a>
+    {% if app.user %}
+        <a class="btn btn-primary" href="{{ path('enchere_new') }}">Créer une nouvelle Enchère</a>
+    {% endif %}
 {% endblock %}

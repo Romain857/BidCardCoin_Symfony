@@ -3,11 +3,11 @@
 {% block title %}Edit OrdreAchat{% endblock %}
 
 {% block body %}
-    <h1>Edit OrdreAchat</h1>
+    <h1>Modifier l'Ordre d'Achat</h1>
 
     {{ include('ordre_achat/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('ordre_achat_index') }}">back to list</a>
+    <a href="{{ path('ordre_achat_index') }}">Retourner à la liste</a>
 
     {{ include('ordre_achat/_delete_form.html.twig') }}
 {% endblock %}

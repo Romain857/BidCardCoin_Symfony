@@ -1,17 +1,26 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
     <a class="navbar-brand" href="{{ path("home") }}"><i class="fas fa-gavel"></i> BidCardCoin</a>
     <a class="navbar-brand" href="{{ path("enchere_index") }}"><i class="fas fa-signal-stream"></i> Enchere en live</a>
-    <a class="navbar-brand" href="{{ path("lot_index") }}">Lot</a>
-    <a class="navbar-brand" href="{{ path("produit_index") }}">Produit</a>
-    <a class="navbar-brand" href="{{ path("produit_new") }}"> Vendre</a>
-    <a class="navbar-brand" href="{{ path("encherir_index") }}"> Vos enchères</a>
+    {# <a class="navbar-brand" href="{{ path("enchereEnCours") }}"><i class="fas fa-hourglass-start"></i> Enchères en Cours</a> #}
+    <a class="navbar-brand" href="{{ path("produit_new") }}"><i class="fas fa-bullseye"></i> Vendre</a>
+    {# <a class="navbar-brand" href="{{ path("lot_index") }}">Lot</a> #}
+    {# <a class="navbar-brand" href="{{ path("produit_index") }}">Produit</a> #}
+    {# <a class="navbar-brand" href="{{ path("categorie_index") }}">Categorie</a> #}
+    {# <a class="navbar-brand" href="{{ path("lieu_index") }}">Lieu</a> #}
 
-    <a class="navbar-brand" href="{{ path("inscription") }}"><i class="fas fa-user"></i></a>
-    {% if not app.user %}
-        <a href="{{ path('login') }}" class="nav-link">Connexion</a>
+    {% if app.user %}
+        <a class="navbar-brand" href="{{ path("encherir_index") }}">Vos enchères</a>
+        <div class="navbar-nav ml-auto">
+            <a class="navbar-brand">{{ app.user.username }}</a>
+            <a href="{{ path('logout') }}" class="navbar-brand nav-link"><i class="fas fa-sign-out-alt"></i> Deconnexion</a>
+        </div>
     {% else %}
-        <a href="{{ path('logout') }}" class="nav-link">Deconnexion</a>
+        <div class="navbar-nav ml-auto">
+            <a class="navbar-brand" href="{{ path("inscription") }}"><i class="fas fa-user"></i></a>
+            <a href="{{ path('login') }}" class="navbar-brand nav-link"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+        </div>
     {% endif %}
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

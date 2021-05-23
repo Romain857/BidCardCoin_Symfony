@@ -3,7 +3,7 @@
 {% block title %}Personne index{% endblock %}
 
 {% block body %}
-    <h1>Personne index</h1>
+    <h1>Liste des Personnes</h1>
 
     <table class="table">
         <thead>
@@ -33,17 +33,17 @@
                 <td>{{ personne.codePostal }}</td>
                 <td>{{ personne.age }}</td>
                 <td>
-                    <a href="{{ path('personne_show', {'id': personne.id}) }}">show</a>
-                    <a href="{{ path('personne_edit', {'id': personne.id}) }}">edit</a>
+                    <a href="{{ path('personne_show', {'id': personne.id}) }}">Afficher</a>
+                    <a href="{{ path('personne_edit', {'id': personne.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="10">no records found</td>
+                <td colspan="10">Pas de résultat disponible</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('inscription') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('inscription') }}">Créer une nouvelle personne</a>
 {% endblock %}

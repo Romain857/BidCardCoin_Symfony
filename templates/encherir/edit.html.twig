@@ -3,11 +3,11 @@
 {% block title %}Edit Encherir{% endblock %}
 
 {% block body %}
-    <h1>Edit Encherir</h1>
+    <h1>Modifier les enchères faites sur les lots par les acheteurs</h1>
 
     {{ include('encherir/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('encherir_index') }}">back to list</a>
+    <a href="{{ path('encherir_index') }}">Retourner à la liste</a>
 
     {{ include('encherir/_delete_form.html.twig') }}
 {% endblock %}

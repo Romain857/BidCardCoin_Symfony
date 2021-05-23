@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Enchere en cours</h1>
-
+    <a class="btn btn-success" href="{{ path("enchere_index") }}">Toutes les enchères</a>
     <table class="table">
         <thead>
         <tr>
@@ -14,6 +14,7 @@
             <th>HeureFin</th>
             <th>DateDebut</th>
             <th>DateFin</th>
+            <th>actions</th>
             <th>Lots</th>
         </tr>
         </thead>
@@ -31,12 +32,19 @@
                     {% else %}
                         <td>{{ enchere.dateFin ? enchere.dateFin|date('Y-m-d') : '' }}</td>
                     {% endif %}
-                    <td><a href="{{ path("voirLots",{'id': enchere.id}) }}">voir lots</a></td>
+                    {% if app.user %}
+                        <td>
+                            <a href="{{ path('enchere_show', {'id': enchere.id}) }}">Afficher</a>
+                            <a href="{{ path('enchere_edit', {'id': enchere.id}) }}">Modifier</a>
+                        </td>
+                    {% endif %}
+                    <td><a class="btn btn-outline-success" href="{{ path("voirLots",{'id': enchere.id}) }}">voir
+                            lots</a></td>
                 </tr>
             {% endif %}
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Pas de résultats</td>
             </tr>
         {% endfor %}
         </tbody>
