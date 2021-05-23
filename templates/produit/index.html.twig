@@ -3,8 +3,8 @@
 {% block title %}Produit index{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
-    <img src="{{ asset('images/lego.jpg') }}" alt="">
+    <h1>Liste des Produits</h1>
+
     <table class="table">
         <thead>
             <tr>
@@ -27,17 +27,19 @@
                 <td>{{ produit.style }}</td>
                 <td>{{ produit.region }}</td>
                 <td>
-                    <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
+                    <a href="{{ path('produit_show', {'id': produit.id}) }}">Afficher</a>
+                    <a href="{{ path('produit_edit', {'id': produit.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Pas de résultat</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('produit_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('produit_new') }}">Créer un nouveau produit</a>
+    <a class="btn btn-success" href="{{ path('estimation_index') }}">Voir et Créer une nouvelle estimation</a>
+    <a class="btn btn-success" href="{{ path('ordre_achat_index') }}">Voir et Créer un nouvel Ordre d'Achat</a>
 {% endblock %}

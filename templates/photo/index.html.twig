@@ -3,7 +3,7 @@
 {% block title %}Photo index{% endblock %}
 
 {% block body %}
-    <h1>Photo index</h1>
+    <h1>Liste des Photos</h1>
 
     <table class="table">
         <thead>
@@ -21,17 +21,17 @@
                 <td>{{ photo.photo }}</td>
                 <td>{{ photo.nom }}</td>
                 <td>
-                    <a href="{{ path('photo_show', {'id': photo.id}) }}">show</a>
-                    <a href="{{ path('photo_edit', {'id': photo.id}) }}">edit</a>
+                    <a href="{{ path('photo_show', {'id': photo.id}) }}">Afficher</a>
+                    <a href="{{ path('photo_edit', {'id': photo.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Pas de résultats</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('photo_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('photo_new') }}">Créer une nouvelle Photo</a>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block title %}Estimation index{% endblock %}
 
 {% block body %}
-    <h1>Estimation index</h1>
+    <h1>Liste des Estimations</h1>
 
     <table class="table">
         <thead>
@@ -21,17 +21,17 @@
                 <td>{{ estimation.estimation }}</td>
                 <td>{{ estimation.dateEstimation ? estimation.dateEstimation|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('estimation_show', {'id': estimation.id}) }}">show</a>
-                    <a href="{{ path('estimation_edit', {'id': estimation.id}) }}">edit</a>
+                    <a href="{{ path('estimation_show', {'id': estimation.id}) }}">Afficher</a>
+                    <a href="{{ path('estimation_edit', {'id': estimation.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Pas de résultats</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('estimation_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('estimation_new') }}">Créer une nouvelle Estimation</a>
 {% endblock %}

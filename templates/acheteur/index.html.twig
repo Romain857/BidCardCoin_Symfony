@@ -3,7 +3,7 @@
 {% block title %}Acheteur index{% endblock %}
 
 {% block body %}
-    <h1>Acheteur index</h1>
+    <h1>Liste des Acheteurs</h1>
 
     <table class="table">
         <thead>
@@ -25,17 +25,17 @@
                 <td>{{ acheteur.identite }}</td>
                 <td>{{ acheteur.moyenPaiement }}</td>
                 <td>
-                    <a href="{{ path('acheteur_show', {'id': acheteur.id}) }}">show</a>
-                    <a href="{{ path('acheteur_edit', {'id': acheteur.id}) }}">edit</a>
+                    <a href="{{ path('acheteur_show', {'id': acheteur.id}) }}">Afficher</a>
+                    <a href="{{ path('acheteur_edit', {'id': acheteur.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Pas de résultats</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('acheteur_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('acheteur_new') }}">Créer un nouvel Acheteur</a>
 {% endblock %}

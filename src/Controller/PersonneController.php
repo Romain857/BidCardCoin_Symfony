@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Encherir;
 use App\Entity\Personne;
 use App\Form\PersonneType;
+use App\Repository\EncherirRepository;
 use App\Repository\PersonneRepository;
 use Doctrine\Persistence\ObjectManager;
 use phpDocumentor\Reflection\Types\Resource_;
@@ -108,5 +110,19 @@ class PersonneController extends AbstractController
         }
 
         return $this->redirectToRoute('personne_index');
+    }
+    /**
+     * @Route ("/encherir/", name="voirEncheres")
+     */
+    public function voirEncherirs($id, Encherir $encherir, EncherirRepository $encherirRepository){
+        $repo=$this->getDoctrine()->getRepository(Encherir::class);
+        $personne=$repo->find($id);
+
+        $encherir=$personne->getIdPersonne();
+
+        return $this->render("lot/voirProduit.html.twig",[
+            "personne" => $personne,
+            "encherir" => $encherir
+        ]);
     }
 }

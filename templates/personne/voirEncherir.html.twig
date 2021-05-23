@@ -3,7 +3,7 @@
 {% block title %}Encherir index{% endblock %}
 
 {% block body %}
-    <h1>Liste des enchères faites par les personnes</h1>
+    <h1>Liste des enchères faites {{ app.user.username }}</h1>
 
     <table class="table">
         <thead>

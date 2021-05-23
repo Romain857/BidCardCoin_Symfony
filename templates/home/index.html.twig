@@ -3,5 +3,52 @@
 {% block title %}BidCardCoin{% endblock %}
 
 {% block body %}
-<h1>*Page d'accueil en cours*</h1>
+
+    {% if app.user %}
+        <h3>Bonjour {{ app.user.username }}</h3>
+        <h3>Bienvenue sur votre site d'enchère BidCardCoin</h3>
+        <ul>
+            <li>
+                <a href="{{ path('lot_index') }}">Lot</a>
+            </li>
+            <li>
+                <a href="{{ path('encherir_index') }}">Encherir</a>
+            </li>
+            <li>
+                <a href="{{ path('enchere_index') }}">Enchere</a>
+            </li>
+            <li>
+                <a href="{{ path('ordre_achat_index') }}">Ordre d'Achat</a>
+            </li>
+            <li>
+                <a href="{{ path('lieu_index') }}">Lieu</a>
+            </li>
+            <li>
+                <a href="{{ path('categorie_index') }}">Catégorie</a>
+            </li>
+            <li>
+                <a href="{{ path('produit_index') }}">Produit</a>
+            </li>
+            <li>
+                <a href="{{ path('photo_index') }}">Photo</a>
+            </li>
+            <li>
+                <a href="{{ path('estimation_index') }}">Estimation</a>
+            </li>
+            <li>
+                <a href="{{ path('personne_index') }}">Personne</a>
+            </li>
+            <li>
+                <a href="{{ path('admin_index') }}">Admin</a>
+            </li>
+        </ul>
+    {% else %}
+        <h2>Veuillez vous connectez pour accéder à l'ensemble du site</h2>
+        <a class="btn btn-outline-success" href="{{ path('login') }}">Connectez vous</a>
+    {% endif %}
+
+{#    <a class="btn btn-primary" href="{{ path("enchere_index") }}"><i class="fas fa-signal-stream"></i> Enchères en live</a>#}
+{#    <a class="btn btn-primary" href="{{ path("produit_new") }}">Vendre</a>#}
+{#    <a class="btn btn-primary" href="{{ path("voirEncheres") }}">Voir vos enchères</a>#}
+
 {% endblock %}
