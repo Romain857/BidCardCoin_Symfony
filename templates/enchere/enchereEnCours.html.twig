@@ -14,7 +14,9 @@
             <th>HeureFin</th>
             <th>DateDebut</th>
             <th>DateFin</th>
-            <th>actions</th>
+            {% if app.user %}
+                <th>actions</th>
+            {% endif %}
             <th>Lots</th>
         </tr>
         </thead>

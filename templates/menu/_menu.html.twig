@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
     <a class="navbar-brand" href="{{ path("home") }}"><i class="fas fa-gavel"></i> BidCardCoin</a>
     <a class="navbar-brand" href="{{ path("enchere_index") }}"><i class="fas fa-signal-stream"></i> Encheres en live</a>
-    <a class="navbar-brand" href="{{ path("lot_index") }}">Lots</a>
-    <a class="navbar-brand" href="{{ path("produit_index") }}">Produits</a>
 
     {% if app.user %}
+        <a class="navbar-brand" href="{{ path("lot_index") }}">Lots</a>
+        <a class="navbar-brand" href="{{ path("produit_index") }}">Produits</a>
         <a class="navbar-brand" href="{{ path("produit_new") }}"><i class="fas fa-bullseye"></i> Vendre</a>
         <div class="navbar-nav ml-auto">
             <a class="navbar-brand">{{ app.user.username }}</a>
